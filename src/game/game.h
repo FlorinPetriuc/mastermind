@@ -11,7 +11,7 @@ struct mastermind_game
     int code[4];
 };
 
-struct mastermind_game *game_init(const int rows, const int variations);
+struct mastermind_game *game_init(const int rows, const int variations, const int *code);
 void game_free(struct mastermind_game *game);
 void game_iterate(struct mastermind_game *game, const int *input,
                             int *full_matches, int *color_matches);

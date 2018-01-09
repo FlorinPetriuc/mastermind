@@ -59,14 +59,41 @@ int main(void)
 
     free(in);
 
-    if(variations < 0)
+    if(variations < 2)
     {
         itf_error("The number of variations must be positive");
 
         return 1;
     }
 
-    game = game_init(rows, variations);
+    in = itf_ask("Code (leave empty for random):");
+    if(in == NULL)
+    {
+        itf_error("Cannot read user code");
+
+        return 1;
+    }
+
+    if(strcmp(in, "\n") == 0)
+    {
+        game = game_init(rows, variations, NULL);
+    }
+    else
+    {
+        if(sscanf(in, "%d %d %d %d", &pegs[0], &pegs[1], &pegs[2], &pegs[3]) != 4)
+        {
+            free(in);
+
+            itf_error("Invalid input");
+
+            return 1;
+        }
+
+        game = game_init(rows, variations, pegs);
+    }
+
+    free(in);
+
     if(game == NULL)
     {
         itf_error("Cannot instantiate game");
@@ -103,11 +130,11 @@ int main(void)
 
     if(game->win)
     {
-        itf_show("Game over: You won");
+        itf_show("Game over: You won\n");
     }
     else
     {
-        itf_show("Game over: You lost.\nCode was %d %d %d %d.",
+        itf_show("Game over: You lost.\nCode was %d %d %d %d.\n",
                     game->code[0], game->code[1], game->code[2], game->code[3]);
     }
 

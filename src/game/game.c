@@ -1,6 +1,6 @@
 #include "../main.h"
 
-struct mastermind_game *game_init(const int rows, const int variations)
+struct mastermind_game *game_init(const int rows, const int variations, const int *code)
 {
     struct mastermind_game *ret;
 
@@ -15,10 +15,17 @@ struct mastermind_game *game_init(const int rows, const int variations)
     ret->variations = variations;
     ret->win = 0;
 
-    ret->code[0] = rand() % variations;
-    ret->code[1] = rand() % variations;
-    ret->code[2] = rand() % variations;
-    ret->code[3] = rand() % variations;
+    if(code)
+    {
+        memcpy(ret->code, code, 4 * sizeof(int));
+    }
+    else
+    {
+        ret->code[0] = rand() % variations;
+        ret->code[1] = rand() % variations;
+        ret->code[2] = rand() % variations;
+        ret->code[3] = rand() % variations;
+    }
 
     return ret;
 }
