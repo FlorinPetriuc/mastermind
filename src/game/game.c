@@ -138,3 +138,23 @@ void game_iterate(struct mastermind_game *game, const int *input,
 
     *color_matches = get_color_matches(game->code, input);
 }
+
+int game_input_sanity_check(struct mastermind_game *game, const int *input)
+{
+    int i;
+
+    for(i = 0; i < 4; ++i)
+    {
+        if(input[i] >= game->variations)
+        {
+            return 0;
+        }
+
+        if(input[i] < 0)
+        {
+            return 0;
+        }
+    }
+
+    return 1;
+}

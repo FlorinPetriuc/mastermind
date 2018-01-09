@@ -16,6 +16,7 @@ void game_free(struct mastermind_game *game);
 void game_iterate(struct mastermind_game *game, const int *input,
                             int *full_matches, int *color_matches);
 int game_over(struct mastermind_game *game);
+int game_input_sanity_check(struct mastermind_game *game, const int *input);
 
 void game_print(struct mastermind_game *game);
 

@@ -89,6 +89,42 @@ int main(void)
             return 1;
         }
 
+        if(pegs[0] >= variations)
+        {
+            free(in);
+
+            itf_error("Peg 0 is out of bounds");
+
+            return 1;
+        }
+
+        if(pegs[1] >= variations)
+        {
+            free(in);
+
+            itf_error("Peg 1 is out of bounds");
+
+            return 1;
+        }
+
+        if(pegs[2] >= variations)
+        {
+            free(in);
+
+            itf_error("Peg 2 is out of bounds");
+
+            return 1;
+        }
+
+        if(pegs[3] >= variations)
+        {
+            free(in);
+
+            itf_error("Peg 3 is out of bounds");
+
+            return 1;
+        }
+
         game = game_init(rows, variations, pegs);
     }
 
@@ -117,7 +153,16 @@ int main(void)
         {
             free(in);
 
-            itf_error("Invalid input");
+            itf_error("Invalid input: expected 4 pegs");
+
+            continue;
+        }
+
+        if(!game_input_sanity_check(game, pegs))
+        {
+            free(in);
+
+            itf_error("Input must be between 0 and %d", game->variations - 1);
 
             continue;
         }
