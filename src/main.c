@@ -2,37 +2,57 @@
 
 int main(void)
 {
-    char *rows;
+    char *in;
 
-    int _rows;
+    int rows;
+    int variations;
 
     itf_init();
 
-    rows = itf_ask("Number of rows (12, 19, 8 or 6):");
-    if(rows == NULL)
+    in = itf_ask("Number of rows (12, 19, 8 or 6):");
+    if(in == NULL)
     {
         itf_error("Error reading the number of rows");
 
         return 1;
     }
 
-    if(sscanf(rows, "%d", &_rows) != 1)
+    if(sscanf(in, "%d", &rows) != 1)
     {
-        free(rows);
+        free(in);
 
         itf_error("Invalid number of rows");
 
         return 1;
     }
 
-    if(_rows != 12 && _rows != 10 && _rows != 8 && _rows != 6)
-    {
-        free(rows);
+    free(in);
 
+    if(rows != 12 && rows != 10 && rows != 8 && rows != 6)
+    {
         itf_error("The number of rows can be 12, 10, 8 or 6");
 
         return 1;
     }
+
+    in = itf_ask("Number of variations:");
+    if(in == NULL)
+    {
+        itf_error("Error reading the number of variations");
+
+        return 1;
+    }
+
+    if(sscanf(in, "%d", &variations) != 1)
+    {
+        free(in);
+
+        itf_error("Invalid number of variations");
+
+        return 1;
+    }
+
+    free(in);
 
     itf_clear();
 
