@@ -6,6 +6,9 @@ int main(void)
 
     int rows;
     int variations;
+    int pegs[4];
+    int full_matches;
+    int color_matches;
 
     struct mastermind_game *game;
 
@@ -56,6 +59,13 @@ int main(void)
 
     free(in);
 
+    if(variations < 0)
+    {
+        itf_error("The number of variations must be positive");
+
+        return 1;
+    }
+
     game = game_init(rows, variations);
     if(game == NULL)
     {
@@ -64,8 +74,44 @@ int main(void)
         return 1;
     }
 
+    while(!game_over(game))
+    {
+        in = itf_ask("Pegs %d:", game->crt_row);
+        if(in == NULL)
+        {
+            game_free(game);
+
+            itf_error("Cannot read user input");
+
+            return 1;
+        }
+
+        if(sscanf(in, "%d %d %d %d", &pegs[0], &pegs[1], &pegs[2], &pegs[3]) != 4)
+        {
+            free(in);
+
+            itf_error("Invalid input");
+
+            continue;
+        }
+
+        free(in);
+
+        game_iterate(game, pegs, &full_matches, &color_matches);
+        itf_show("Got %d black pegs and %d white pegs", full_matches, color_matches);
+    }
+
+    if(game->win)
+    {
+        itf_show("Game over: You won");
+    }
+    else
+    {
+        itf_show("Game over: You lost.\nCode was %d %d %d %d.",
+                    game->code[0], game->code[1], game->code[2], game->code[3]);
+    }
+
     game_free(game);
-    itf_clear();
 
     return 0;
 }
