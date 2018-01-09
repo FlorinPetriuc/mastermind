@@ -6,5 +6,6 @@
 #include <stdarg.h>
 
 #include "itf/itf.h"
+#include "game/game.h"
 
 #endif
