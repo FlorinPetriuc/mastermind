@@ -98,7 +98,7 @@ int main(void)
         free(in);
 
         game_iterate(game, pegs, &full_matches, &color_matches);
-        itf_show("Got %d black pegs and %d white pegs", full_matches, color_matches);
+        itf_show("Got %d black pegs and %d white pegs\n", full_matches, color_matches);
     }
 
     if(game->win)
