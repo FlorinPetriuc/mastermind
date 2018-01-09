@@ -7,6 +7,8 @@ int main(void)
     int rows;
     int variations;
 
+    struct mastermind_game *game;
+
     itf_init();
 
     in = itf_ask("Number of rows (12, 19, 8 or 6):");
@@ -54,6 +56,15 @@ int main(void)
 
     free(in);
 
+    game = game_init(rows, variations);
+    if(game == NULL)
+    {
+        itf_error("Cannot instantiate game");
+
+        return 1;
+    }
+
+    game_free(game);
     itf_clear();
 
     return 0;

@@ -45,3 +45,12 @@ void itf_error(const char *pattern, ...)
     vprintf(pattern, args);
     va_end(args);
 }
+
+void itf_show(const char *pattern, ...)
+{
+    va_list args;
+
+    va_start(args, pattern);
+    vprintf(pattern, args);
+    va_end(args);
+}
