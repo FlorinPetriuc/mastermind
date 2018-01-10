@@ -15,8 +15,12 @@ int test1()
     if(full_matches != 0 || color_matches != 4 || game->win != 0 || game->crt_row != 1 ||
        game->total_rows != 6 || game->variations != 5 || memcmp(game->code, pegs, 4 * sizeof(int)))
     {
+        game_free(game);
+
         return -1;
     }
+
+    game_free(game);
 
     return 0;
 }
@@ -36,8 +40,12 @@ int test2()
     if(full_matches != 4 || color_matches != 0 || game->win != 1 || game->crt_row != 1 ||
        game->total_rows != 6 || game->variations != 5 || memcmp(game->code, pegs, 4 * sizeof(int)))
     {
+        game_free(game);
+
         return -1;
     }
+
+    game_free(game);
 
     return 0;
 }
@@ -57,8 +65,12 @@ int test3()
     if(full_matches != 1 || color_matches != 2 || game->win != 0 || game->crt_row != 1 ||
        game->total_rows != 6 || game->variations != 5 || memcmp(game->code, pegs, 4 * sizeof(int)))
     {
+        game_free(game);
+
         return -1;
     }
+
+    game_free(game);
 
     return 0;
 }
